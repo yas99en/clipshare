@@ -12,9 +12,9 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class ClipShareIcon {
-    TrayIcon trayIcon;
-    MenuItem settingsItem;
-    MenuItem exitItem;
+    final TrayIcon trayIcon;
+    final MenuItem settingsItem;
+    final MenuItem exitItem;
 
     public ClipShareIcon() throws IOException, AWTException {
         SystemTray tray = SystemTray.getSystemTray();

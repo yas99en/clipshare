@@ -10,16 +10,14 @@ public class IconPresenter {
     public IconPresenter() throws IOException, AWTException {
         ClipShareIcon icon = new ClipShareIcon();
         icon.exitItem.addActionListener(e -> System.exit(0));
-        
+
         icon.trayIcon.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if(e.getClickCount() == 1) {
-                    System.out.println("single clicked");
                     icon.displayMessage(Msgs.m("AppName"), "Clicked", TrayIcon.MessageType.NONE);
                 }
             }
         });
-
     }
 }
