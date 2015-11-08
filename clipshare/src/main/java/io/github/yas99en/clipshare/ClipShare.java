@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import javax.swing.SwingUtilities;
 
-import io.github.yas99en.clipshare.view.Tray;
+import io.github.yas99en.clipshare.view.ClipShareIcon;
 
 public class ClipShare {
 
@@ -15,7 +15,7 @@ public class ClipShare {
 
     public static void run() {
         try {
-            new Tray();
+            new ClipShareIcon();
         } catch (IOException | AWTException e) {
             e.printStackTrace();
         }
