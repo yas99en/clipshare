@@ -26,7 +26,7 @@ public class ClipShareIcon {
         exitItem = new MenuItem(Msgs.m("ClipShareIcon.Exit"));
         menu.add(exitItem);
 
-        trayIcon = new TrayIcon(image, Msgs.m("AppName"), menu); //$NON-NLS-1$
+        trayIcon = new TrayIcon(image, Msgs.m("AppName"), menu);
         tray.add(trayIcon);
     }
 
