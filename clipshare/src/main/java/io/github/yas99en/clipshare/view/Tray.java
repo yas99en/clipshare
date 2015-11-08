@@ -11,7 +11,7 @@ import javax.imageio.ImageIO;
 public class Tray {
     public Tray() throws IOException, AWTException {
         SystemTray tray = SystemTray.getSystemTray();
-        Image image = ImageIO.read(Tray.class.getResourceAsStream("clipboard_edit24.png"));
+        Image image = ImageIO.read(Tray.class.getResourceAsStream("clipboard_edit16.png"));
         TrayIcon icon = new TrayIcon(image, "ClipShare");
         tray.add(icon);
     }
