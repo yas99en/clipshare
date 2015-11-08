@@ -6,23 +6,32 @@ import java.awt.MenuItem;
 import java.awt.PopupMenu;
 import java.awt.SystemTray;
 import java.awt.TrayIcon;
+import java.awt.TrayIcon.MessageType;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
 public class ClipShareIcon {
-    private TrayIcon icon;
+    TrayIcon trayIcon;
+    MenuItem settingsItem;
+    MenuItem exitItem;
 
     public ClipShareIcon() throws IOException, AWTException {
         SystemTray tray = SystemTray.getSystemTray();
-        Image image = ImageIO.read(ClipShareIcon.class.getResourceAsStream("clipboard_edit16.png")); //$NON-NLS-1$
+        Image image = ImageIO.read(ClipShareIcon.class.getResourceAsStream("clipboard_edit16.png"));
 
-        PopupMenu menu = new PopupMenu(Msgs.m("ClipShareIcon.AppName")); //$NON-NLS-1$
-        menu.add(new MenuItem(Msgs.m("ClipShareIcon.Settings"))); //$NON-NLS-1$
-        menu.add(new MenuItem(Msgs.m("ClipShareIcon.Exit"))); //$NON-NLS-1$
+        PopupMenu menu = new PopupMenu(Msgs.m("AppName"));
+        settingsItem = new MenuItem(Msgs.m("ClipShareIcon.Settings"));
+        menu.add(settingsItem);
+        exitItem = new MenuItem(Msgs.m("ClipShareIcon.Exit"));
+        menu.add(exitItem);
 
-        icon = new TrayIcon(image, Msgs.m("Tray.AppName"), menu); //$NON-NLS-1$
-        tray.add(icon);
+        trayIcon = new TrayIcon(image, Msgs.m("AppName"), menu); //$NON-NLS-1$
+        tray.add(trayIcon);
+    }
+
+    public void displayMessage(String caption, String text, MessageType messageType) {
+        trayIcon.displayMessage(caption, text, messageType);
     }
 
     
