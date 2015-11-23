@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.websocket.DeploymentException;
+import javax.websocket.EndpointConfig;
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
@@ -41,7 +42,7 @@ public class ClipShareServer {
     }
 
     @OnOpen
-    public void onOpen(Session session) {
+    public void onOpen(EndpointConfig config, Session session) {
         System.out.println("[open] " + session);
         sessions.add(session);
     }

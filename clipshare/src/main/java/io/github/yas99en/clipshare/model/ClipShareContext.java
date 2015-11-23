@@ -5,7 +5,7 @@ import java.util.prefs.Preferences;
 public class ClipShareContext {
     private ClipShareContext() {}
     private ClipShareServer server = new ClipShareServer();
-    private Client client = new Client();
+    private ClipShareClient client = new ClipShareClient();
     private Preferences preferences = Preferences.userNodeForPackage(this.getClass());
 
     static ClipShareContext instance = new ClipShareContext();
@@ -22,11 +22,11 @@ public class ClipShareContext {
         this.server = server;
     }
 
-    public Client getClient() {
+    public ClipShareClient getClient() {
         return client;
     }
 
-    public void setClient(Client client) {
+    public void setClient(ClipShareClient client) {
         this.client = client;
     }
 

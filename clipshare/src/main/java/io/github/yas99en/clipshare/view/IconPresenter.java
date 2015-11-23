@@ -12,15 +12,15 @@ import java.util.prefs.Preferences;
 
 import javax.websocket.DeploymentException;
 
-import io.github.yas99en.clipshare.model.Client;
+import io.github.yas99en.clipshare.model.ClipShareClient;
 import io.github.yas99en.clipshare.model.ClipShareContext;
 import io.github.yas99en.clipshare.model.ClipShareServer;;
 
-public class IconPresenter implements ClipShareServer.Listener, Client.Listener {
+public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.Listener {
     private static final int DEFAULT_PORT = 18211;
     private ClipShareContext context = ClipShareContext.getInstance();
     private ClipShareServer server = context.getServer();
-    private Client client = context.getClient();
+    private ClipShareClient client = context.getClient();
 
     public IconPresenter() throws IOException, AWTException {
         ClipShareIcon icon = new ClipShareIcon();
