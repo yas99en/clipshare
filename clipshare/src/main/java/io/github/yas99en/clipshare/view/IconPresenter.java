@@ -2,7 +2,6 @@ package io.github.yas99en.clipshare.view;
 
 import java.awt.AWTException;
 import java.awt.Toolkit;
-import java.awt.TrayIcon;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
