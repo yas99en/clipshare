@@ -45,7 +45,7 @@ public class ClipShare {
 
     public static void run() {
         try {
-            new IconPresenter();
+            new IconPresenter().start();;
         } catch (IOException | AWTException e) {
             e.printStackTrace();
         }
