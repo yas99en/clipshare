@@ -13,7 +13,7 @@ public class ClipShareConfig {
     }
 
     public boolean isServerMode() {
-        return prefs.getBoolean("serverMode", false);
+        return prefs.getBoolean("serverMode", true);
     }
 
     public void setServerPort(int port) {
