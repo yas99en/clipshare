@@ -28,7 +28,7 @@ public class ClipShareClient {
     public void start(String server, int port)  {
         WebSocketContainer container = ContainerProvider.getWebSocketContainer();
 
-        URI uri = URI.create("ws://localhost:8080/ws/echo");
+        URI uri = URI.create("ws://localhost:8080/clipShare/update");
 
         try {
             session = container.connectToServer(this, uri);

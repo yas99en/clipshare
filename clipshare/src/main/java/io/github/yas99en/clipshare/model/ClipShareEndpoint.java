@@ -5,7 +5,9 @@ import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
+import javax.websocket.server.ServerEndpoint;
 
+@ServerEndpoint("/update")
 public class ClipShareEndpoint {
     ClipShareServer server = ClipShareServer.getInstance();
     @OnOpen

@@ -5,11 +5,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.websocket.DeploymentException;
 import javax.websocket.Session;
-import javax.websocket.server.ServerEndpoint;
 
 import org.glassfish.tyrus.server.Server;
 
-@ServerEndpoint("/clipShare")
 public class ClipShareServer {
     public interface Listener {
         void onMessage(String message);
@@ -32,7 +30,7 @@ public class ClipShareServer {
     }
 
     public void start(int port) throws DeploymentException {
-        server = new Server("localhost", 8080, "/ws", null, ClipShareEndpoint.class);
+        server = new Server("localhost", port, "/clipShare", null, ClipShareEndpoint.class);
         server.start();
     }
     
