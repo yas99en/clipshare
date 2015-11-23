@@ -16,13 +16,14 @@ import javax.websocket.WebSocketContainer;
 @ClientEndpoint
 public class ClipShareClient {
     public interface Listener {
-        
+        void onClientMessage(String message);
     }
 
     private Session session;
+    private Listener listener;
 
     public void setListener(Listener listener) {
-        
+        this.listener = listener;
     }
 
     public void start(String server, int port)  {
@@ -52,6 +53,9 @@ public class ClipShareClient {
     @OnMessage
     public void onMessage(Session session, String message) {
         System.out.println("message: "+message);
+        if(listener != null) {
+            listener.onClientMessage(message);
+        }
     }
 
     @OnError

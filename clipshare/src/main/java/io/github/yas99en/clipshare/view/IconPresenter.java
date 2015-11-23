@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.prefs.Preferences;
 
+import javax.swing.SwingUtilities;
 import javax.websocket.DeploymentException;
 
 import io.github.yas99en.clipshare.model.ClipShareClient;
@@ -23,6 +24,8 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
     private ClipShareServer server = context.getServer();
     private ClipShareClient client = context.getClient();
     private ClipShareIcon icon;
+    private Toolkit kit = Toolkit.getDefaultToolkit();
+    private Clipboard clip = kit.getSystemClipboard();
 
     public IconPresenter() throws IOException, AWTException {
         icon = new ClipShareIcon();
@@ -44,12 +47,12 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
     private void onClicked() {
 //        icon.displayMessage(Msgs.m("AppName"), "Clicked", TrayIcon.MessageType.NONE);
         Preferences prefs = context.getPreferences();
-
-        Toolkit kit = Toolkit.getDefaultToolkit();
-        Clipboard clip = kit.getSystemClipboard();
         
         try {
             String data = (String) clip.getData(DataFlavor.stringFlavor);
+            if(data == null) {
+                return;
+            }
             boolean serverMode = prefs.getBoolean("serverMode", true);
             if(serverMode) {
                 server.broadCast(data);
@@ -84,11 +87,18 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
 
     @Override
     public void onMessage(String message) {
-        Toolkit kit = Toolkit.getDefaultToolkit();
-        Clipboard clip = kit.getSystemClipboard();
-        StringSelection ss = new StringSelection(message);
-        clip.setContents(ss, ss);
-        
-        server.broadCast(message);
+        SwingUtilities.invokeLater(() -> {
+            StringSelection ss = new StringSelection(message);
+            clip.setContents(ss, ss);
+            server.broadCast(message);
+        });
+    }
+
+    @Override
+    public void onClientMessage(String message) {
+        SwingUtilities.invokeLater(() -> {
+            StringSelection ss = new StringSelection(message);
+            clip.setContents(ss, ss);
+        });
     }
 }
