@@ -39,7 +39,9 @@ public class IconPresenter implements Server.Listener, Client.Listener {
             int serverPort = prefs.getInt("serverPort", 18211);
             server.start(serverPort);
         } else {
-            
+            String serverHost = prefs.get("serverHost", null);
+            int port = prefs.getInt("port", 18211);
+            client.start(serverHost, port);
         }
 
     }
