@@ -21,22 +21,34 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
     private ClipShareContext context = ClipShareContext.getInstance();
     private ClipShareServer server = context.getServer();
     private ClipShareClient client = context.getClient();
+    private ClipShareIcon icon;
 
     public IconPresenter() throws IOException, AWTException {
-        ClipShareIcon icon = new ClipShareIcon();
+        icon = new ClipShareIcon();
         icon.exitItem.addActionListener(e -> System.exit(0));
 
         icon.trayIcon.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if(e.getClickCount() == 1) {
-                    icon.displayMessage(Msgs.m("AppName"), "Clicked", TrayIcon.MessageType.NONE);
+                    onClicked();
                 }
             }
         });
 
         server.setListener(this);
         client.setListener(this);
+    }
+
+    private void onClicked() {
+        icon.displayMessage(Msgs.m("AppName"), "Clicked", TrayIcon.MessageType.NONE);
+        Preferences prefs = context.getPreferences();
+        boolean serverMode = prefs.getBoolean("serverMode", true);
+        if(serverMode) {
+            server.broadCast("aa");
+        } else {
+            client.sendMessage("aa");
+        }
     }
 
     public void start() {

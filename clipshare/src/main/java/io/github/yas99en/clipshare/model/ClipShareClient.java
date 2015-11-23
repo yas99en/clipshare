@@ -28,12 +28,10 @@ public class ClipShareClient {
     public void start(String server, int port)  {
         WebSocketContainer container = ContainerProvider.getWebSocketContainer();
 
-        URI uri = URI.create("ws://localhost:8080/clipShare/update");
+        URI uri = URI.create("ws://"+server+":"+port+"/clipShare/update");
 
         try {
             session = container.connectToServer(this, uri);
-            System.out.println("connected");
-            session.getBasicRemote().sendText("hello");
         } catch (DeploymentException | IOException e) {
             session = null;
         }
@@ -65,5 +63,11 @@ public class ClipShareClient {
     public void onClose(Session session) {
         System.out.println("close: " + session.getId());
         session = null;
+    }
+
+    public void sendMessage(String message) {
+        if(session != null) {
+            session.getAsyncRemote().sendText(message);
+        }
     }
 }
