@@ -19,7 +19,11 @@ public class ClipShareIcon {
 
     public ClipShareIcon() throws IOException, AWTException {
         SystemTray tray = SystemTray.getSystemTray();
-        Image image = ImageIO.read(ClipShareIcon.class.getResourceAsStream("clipboard_edit16.png"));
+
+        String iconFileName = 
+                System.getProperty("os.name", "").equals("Linux") ? "clipboard_edit24.png" : "clipboard_edit16.png";
+
+        Image image = ImageIO.read(ClipShareIcon.class.getResourceAsStream(iconFileName));
         menu.add(settingsItem);
         menu.add(exitItem);
         trayIcon = new TrayIcon(image, Msgs.m("AppName"), menu);
@@ -30,5 +34,7 @@ public class ClipShareIcon {
         trayIcon.displayMessage(caption, text, messageType);
     }
 
-    
+    public static void main(String[] args) throws IOException {
+        System.getProperties().store(System.out, "test");
+    }
 }
