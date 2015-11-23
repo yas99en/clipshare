@@ -2,6 +2,9 @@ package io.github.yas99en.clipshare.model;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import javax.websocket.ClientEndpoint;
 import javax.websocket.ContainerProvider;
@@ -21,26 +24,64 @@ public class ClipShareClient {
 
     private Session session;
     private Listener listener;
+    private String host;
+    private int port;
+    private ScheduledExecutorService ses;
+    private boolean started;
 
     public void setListener(Listener listener) {
         this.listener = listener;
     }
 
-    public void start(String server, int port)  {
+    public void start(String host, int port)  {
+        started = true;
+        this.host = host;
+        this.port = port;
+
+        startConnection();
+    }
+
+    private void startConnection() {
+        ses = Executors.newScheduledThreadPool(1);
+        ses.scheduleAtFixedRate(() -> {
+            session = connectTo(this.host, this.port);
+            if(session != null) {
+                ses.shutdown();
+                ses = null;
+            }
+        }, 0, 5, TimeUnit.SECONDS);
+    }
+
+    private Session connectTo(String host, int port) {
         WebSocketContainer container = ContainerProvider.getWebSocketContainer();
 
-        URI uri = URI.create("ws://"+server+":"+port+"/clipShare/update");
+        URI uri = URI.create("ws://"+host+":"+port+"/clipShare/update");
 
         try {
-            session = container.connectToServer(this, uri);
+            return container.connectToServer(this, uri);
         } catch (DeploymentException | IOException e) {
-            session = null;
+            e.printStackTrace();
+            return null;
         }
     }
 
-    public void stop() throws IOException {
+    public void stop() {
+        started = false;
+        if(ses != null) {
+            ses.shutdown();
+            try {
+                ses.awaitTermination(5, TimeUnit.SECONDS);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
         if(session != null) {
-            session.close();
+            try {
+                session.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         session = null;
     }
@@ -67,6 +108,9 @@ public class ClipShareClient {
     public void onClose(Session session) {
         System.out.println("close: " + session.getId());
         session = null;
+        if(started) {
+            startConnection();
+        }
     }
 
     public void sendMessage(String message) {
