@@ -16,11 +16,11 @@ public class ClipShareConfig {
         return prefs.getBoolean("serverMode", true);
     }
 
-    public void setServerPort(int port) {
+    public void setPort(int port) {
         prefs.putInt("serverPort", port);
     }
 
-    public int getServerPort() {
+    public int getPort() {
         return prefs.getInt("serverPort", DEFAULT_PORT);
     }
 
@@ -32,14 +32,6 @@ public class ClipShareConfig {
         return prefs.get("client.serverHost", null);
     }
 
-    public void setClientServerPort(int port) {
-        prefs.putInt("client.serverPort", port);
-    }
-
-    public int getClientServerPort() {
-        return prefs.getInt("client.serverPort", DEFAULT_PORT);
-    }
-    
     public void clear() throws BackingStoreException {
         prefs.clear();
     }

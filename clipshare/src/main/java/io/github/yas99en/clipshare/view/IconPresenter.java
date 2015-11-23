@@ -2,6 +2,7 @@ package io.github.yas99en.clipshare.view;
 
 import java.awt.AWTException;
 import java.awt.Toolkit;
+import java.awt.TrayIcon;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
@@ -67,19 +68,19 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
         ClipShareConfig config = context.getConfig();
         boolean serverMode = config.isServerMode();
         if(serverMode) {
-            int serverPort = config.getServerPort();
+            int serverPort = config.getPort();
             try {
                 server.start(serverPort);
             } catch (DeploymentException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                icon.displayMessage(Msgs.m("AppName"),
+                        "Server start failed", TrayIcon.MessageType.NONE);
             }
         } else {
             String host = config.getClientServerHost();
             if(host == null) {
                 return;
             }
-            int port = config.getClientServerPort();
+            int port = config.getPort();
             client.start(host, port);
         }
     }

@@ -25,19 +25,14 @@ public class ClipShare {
                 config.setServerMode(true);
             } else if(arg.equals("--clientMode")) {
                 config.setServerMode(false);
-            } else if(arg.equals("--serverPort")) {
+            } else if(arg.equals("--port")) {
                 if(i < args.length-1) {
-                    config.setServerPort(Integer.parseInt(args[i+1]));
+                    config.setPort(Integer.parseInt(args[i+1]));
                     i++;
                 }
             } else if(arg.equals("--clientServerHost")) {
                 if(i < args.length-1) {
                     config.setClientServerHost(args[i+1]);
-                    i++;
-                }
-            } else if(arg.equals("--clientServerPort")) {
-                if(i < args.length-1) {
-                    config.setClientServerPort(Integer.parseInt(args[i+1]));
                     i++;
                 }
             } else if(arg.equals("--clear")) {
