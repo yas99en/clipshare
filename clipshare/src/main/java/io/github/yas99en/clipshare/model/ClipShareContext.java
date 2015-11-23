@@ -4,13 +4,13 @@ import java.util.prefs.Preferences;
 
 public class ClipShareContext {
     private ClipShareContext() {}
-    private Server server;
-    private Client client;
+    private Server server = new Server();
+    private Client client = new Client();
     private Preferences preferences = Preferences.userNodeForPackage(this.getClass());
 
     static ClipShareContext instance = new ClipShareContext();
 
-    static ClipShareContext getInstance() {
+    static public ClipShareContext getInstance() {
         return instance;
     }
 
