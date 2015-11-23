@@ -44,9 +44,8 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
     }
 
     private void onClicked() {
-//        icon.displayMessage(Msgs.m("AppName"), "Clicked", TrayIcon.MessageType.NONE);
         ClipShareConfig config = context.getConfig();
-        
+
         try {
             String data = (String) clip.getData(DataFlavor.stringFlavor);
             if(data == null) {
