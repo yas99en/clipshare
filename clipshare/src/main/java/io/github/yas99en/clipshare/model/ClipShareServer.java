@@ -10,7 +10,7 @@ import org.glassfish.tyrus.server.Server;
 
 public class ClipShareServer {
     public interface Listener {
-        void onMessage(String message);
+        void onServerMessage(String message);
     }
 
     private static ClipShareServer instance = new ClipShareServer();
@@ -55,7 +55,7 @@ public class ClipShareServer {
 
     void onMessage(String message, Session session) {
         if(listener != null) {
-            listener.onMessage(message);
+            listener.onServerMessage(message);
         }
     }
 }

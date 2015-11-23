@@ -84,7 +84,7 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
     }
 
     @Override
-    public void onMessage(String message) {
+    public void onServerMessage(String message) {
         SwingUtilities.invokeLater(() -> {
             StringSelection ss = new StringSelection(message);
             clip.setContents(ss, ss);
