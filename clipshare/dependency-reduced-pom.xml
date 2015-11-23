@@ -18,6 +18,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-shade-plugin</artifactId>
+        <version>2.4.2</version>
         <executions>
           <execution>
             <phase>package</phase>
@@ -36,6 +37,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-jar-plugin</artifactId>
+        <version>2.6</version>
         <configuration>
           <archive>
             <manifestFile>${basedir}/src/main/resources/META-INF/MANIFEST.MF</manifestFile>

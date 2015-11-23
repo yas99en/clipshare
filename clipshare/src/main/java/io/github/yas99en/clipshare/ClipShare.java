@@ -37,6 +37,7 @@ public class ClipShare {
                 }
             } else if(arg.equals("--clear")) {
                 config.clear();
+                System.exit(0);
             }
         }
 
