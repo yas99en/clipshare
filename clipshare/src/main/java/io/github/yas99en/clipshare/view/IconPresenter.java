@@ -9,17 +9,16 @@ import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
-import java.util.prefs.Preferences;
 
 import javax.swing.SwingUtilities;
 import javax.websocket.DeploymentException;
 
 import io.github.yas99en.clipshare.model.ClipShareClient;
+import io.github.yas99en.clipshare.model.ClipShareConfig;
 import io.github.yas99en.clipshare.model.ClipShareContext;
 import io.github.yas99en.clipshare.model.ClipShareServer;;
 
 public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.Listener {
-    private static final int DEFAULT_PORT = 18211;
     private ClipShareContext context = ClipShareContext.getInstance();
     private ClipShareServer server = context.getServer();
     private ClipShareClient client = context.getClient();
@@ -46,14 +45,14 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
 
     private void onClicked() {
 //        icon.displayMessage(Msgs.m("AppName"), "Clicked", TrayIcon.MessageType.NONE);
-        Preferences prefs = context.getPreferences();
+        ClipShareConfig config = context.getConfig();
         
         try {
             String data = (String) clip.getData(DataFlavor.stringFlavor);
             if(data == null) {
                 return;
             }
-            boolean serverMode = prefs.getBoolean("serverMode", true);
+            boolean serverMode = config.isServerMode();
             if(serverMode) {
                 server.broadCast(data);
             } else {
@@ -65,10 +64,10 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
     }
 
     public void start() {
-        Preferences prefs = context.getPreferences();
-        boolean serverMode = prefs.getBoolean("serverMode", true);
+        ClipShareConfig config = context.getConfig();
+        boolean serverMode = config.isServerMode();
         if(serverMode) {
-            int serverPort = prefs.getInt("server.port", DEFAULT_PORT);
+            int serverPort = config.getServerPort();
             try {
                 server.start(serverPort);
             } catch (DeploymentException e) {
@@ -76,11 +75,11 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
                 e.printStackTrace();
             }
         } else {
-            String host = prefs.get("client.serverHost", null);
+            String host = config.getClientServerHost();
             if(host == null) {
                 return;
             }
-            int port = prefs.getInt("client.serverPort", DEFAULT_PORT);
+            int port = config.getClientServerPort();
             client.start(host, port);
         }
     }

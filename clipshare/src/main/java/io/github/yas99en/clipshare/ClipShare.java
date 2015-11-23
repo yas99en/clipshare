@@ -2,45 +2,49 @@ package io.github.yas99en.clipshare;
 
 import java.awt.AWTException;
 import java.io.IOException;
-import java.util.prefs.Preferences;
+import java.util.prefs.BackingStoreException;
 
 import javax.swing.SwingUtilities;
 
+import io.github.yas99en.clipshare.model.ClipShareConfig;
 import io.github.yas99en.clipshare.model.ClipShareContext;
 import io.github.yas99en.clipshare.view.IconPresenter;
 
 public class ClipShare {
 
-    public static void main(String[] args) {
-        Preferences prefs = ClipShareContext.getInstance().getPreferences();
-        args2Prefs(args, prefs);
+    public static void main(String[] args) throws BackingStoreException {
+        ClipShareConfig config = ClipShareContext.getInstance().getConfig();
+        args2Prefs(args, config);
         SwingUtilities.invokeLater(ClipShare::run);
     }
 
-    public static void args2Prefs(String[] args, Preferences prefs) {
+    public static void args2Prefs(String[] args, ClipShareConfig config) throws BackingStoreException {
         for(int i = 0; i < args.length; i++) {
             String arg = args[i];
             if(arg.equals("--serverMode")) {
-                prefs.putBoolean("serverMode", true);
+                config.setServerMode(true);
             } else if(arg.equals("--clientMode")) {
-                prefs.putBoolean("serverMode", false);
+                config.setServerMode(false);
             } else if(arg.equals("--serverPort")) {
                 if(i < args.length-1) {
-                    prefs.putInt("server.port", Integer.parseInt(args[i+1]));
+                    config.setServerPort(Integer.parseInt(args[i+1]));
                     i++;
                 }
             } else if(arg.equals("--clientServerHost")) {
                 if(i < args.length-1) {
-                    prefs.put("client.serverHost", args[i+1]);
+                    config.setClientServerHost(args[i+1]);
                     i++;
                 }
             } else if(arg.equals("--clientServerPort")) {
                 if(i < args.length-1) {
-                    prefs.putInt("client.serverPort", Integer.parseInt(args[i+1]));
+                    config.setClientServerPort(Integer.parseInt(args[i+1]));
                     i++;
                 }
+            } else if(arg.equals("--clear")) {
+                config.clear();
             }
         }
+
     }
 
     public static void run() {
