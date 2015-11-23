@@ -19,6 +19,8 @@ public class ClipShareClient {
         
     }
 
+    private Session session;
+
     public void setListener(Listener listener) {
         
     }
@@ -28,19 +30,20 @@ public class ClipShareClient {
 
         URI uri = URI.create("ws://localhost:8080/ws/echo");
 
-        Session session;
         try {
             session = container.connectToServer(this, uri);
             System.out.println("connected");
             session.getBasicRemote().sendText("hello");
         } catch (DeploymentException | IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            session = null;
         }
     }
 
-    public void stop() {
-        
+    public void stop() throws IOException {
+        if(session != null) {
+            session.close();
+        }
+        session = null;
     }
 
     @OnOpen
@@ -61,5 +64,6 @@ public class ClipShareClient {
     @OnClose
     public void onClose(Session session) {
         System.out.println("close: " + session.getId());
+        session = null;
     }
 }
