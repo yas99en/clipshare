@@ -23,12 +23,11 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
     private ClipShareContext context = ClipShareContext.getInstance();
     private ClipShareServer server = context.getServer();
     private ClipShareClient client = context.getClient();
-    private ClipShareIcon icon;
+    private ClipShareIcon icon = new ClipShareIcon();
     private Toolkit kit = Toolkit.getDefaultToolkit();
     private Clipboard clip = kit.getSystemClipboard();
 
     public IconPresenter() throws IOException, AWTException {
-        icon = new ClipShareIcon();
         icon.exitItem.addActionListener(e -> System.exit(0));
 
         icon.trayIcon.addMouseListener(new MouseAdapter() {
