@@ -4,7 +4,9 @@ import java.awt.AWTException;
 import java.awt.Toolkit;
 import java.awt.TrayIcon;
 import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -41,13 +43,22 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
     }
 
     private void onClicked() {
-        icon.displayMessage(Msgs.m("AppName"), "Clicked", TrayIcon.MessageType.NONE);
+//        icon.displayMessage(Msgs.m("AppName"), "Clicked", TrayIcon.MessageType.NONE);
         Preferences prefs = context.getPreferences();
-        boolean serverMode = prefs.getBoolean("serverMode", true);
-        if(serverMode) {
-            server.broadCast("aa");
-        } else {
-            client.sendMessage("aa");
+
+        Toolkit kit = Toolkit.getDefaultToolkit();
+        Clipboard clip = kit.getSystemClipboard();
+        
+        try {
+            String data = (String) clip.getData(DataFlavor.stringFlavor);
+            boolean serverMode = prefs.getBoolean("serverMode", true);
+            if(serverMode) {
+                server.broadCast(data);
+            } else {
+                client.sendMessage(data);
+            }
+        } catch (UnsupportedFlavorException | IOException e) {
+            e.printStackTrace();
         }
     }
 
