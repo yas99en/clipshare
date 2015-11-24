@@ -9,8 +9,6 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.IOException;
 
 import javax.swing.SwingUtilities;
@@ -28,21 +26,13 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
     private ClipShareIcon icon = new ClipShareIcon();
     private Toolkit kit = Toolkit.getDefaultToolkit();
     private Clipboard clip = kit.getSystemClipboard();
+    private SettingDialogPresenter settingDialogPresenter;
 
     public IconPresenter() throws IOException, AWTException {
         icon.exitItem.addActionListener(e -> System.exit(0));
         
         icon.settingsItem.addActionListener(e -> {
-            SettingDialog dialog = new SettingDialog();
-            dialog.getOkButton().addActionListener(ev -> dialog.setVisible(false));
-            dialog.getCancelButton().addActionListener(ev -> dialog.setVisible(false));
-            dialog.addWindowListener(new WindowAdapter() {
-                @Override
-                public void windowClosing(WindowEvent e) {
-                    dialog.setVisible(false);
-                }
-            });
-            dialog.setVisible(true);
+            getSettingDialogPresenter().show();
         });
 
         icon.trayIcon.addMouseListener(new MouseAdapter() {
@@ -56,6 +46,13 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
 
         server.setListener(this);
         client.setListener(this);
+    }
+
+    private SettingDialogPresenter getSettingDialogPresenter() {
+        if(settingDialogPresenter == null) {
+            settingDialogPresenter = new SettingDialogPresenter();
+        }
+        return settingDialogPresenter;
     }
 
     private void onClicked() {

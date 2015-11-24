@@ -41,7 +41,8 @@ public class SettingDialog extends JDialog {
      * Create the dialog.
      */
     public SettingDialog() {
-        setBounds(100, 100, 239, 199);
+        setBounds(100, 100, 239, 200);
+        setLocationByPlatform(true);
         getContentPane().setLayout(new BorderLayout());
         contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
         getContentPane().add(contentPanel, BorderLayout.CENTER);
