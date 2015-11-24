@@ -41,6 +41,7 @@ public class SettingDialog extends JDialog {
      * Create the dialog.
      */
     public SettingDialog() {
+        setTitle("ClipShare Settings");
         setBounds(100, 100, 239, 200);
         setLocationByPlatform(true);
         getContentPane().setLayout(new BorderLayout());
