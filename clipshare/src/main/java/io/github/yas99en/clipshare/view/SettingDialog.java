@@ -3,25 +3,26 @@ package io.github.yas99en.clipshare.view;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
-import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
-import javax.swing.ButtonGroup;
 
 public class SettingDialog extends JDialog {
 
     private final JPanel contentPanel = new JPanel();
-    private JRadioButton rdbtnNewRadioButton;
-    private JTextField textField;
-    private JTextField textField_1;
-    private JTextField textField_2;
-    private JTextField textField_3;
     private final ButtonGroup buttonGroup = new ButtonGroup();
+    private JTextField textField;
+    private JButton cancelButton;
+    private JButton okButton;
 
     /**
      * Launch the application.
@@ -40,91 +41,91 @@ public class SettingDialog extends JDialog {
      * Create the dialog.
      */
     public SettingDialog() {
-        setBounds(100, 100, 450, 300);
+        setBounds(100, 100, 239, 199);
         getContentPane().setLayout(new BorderLayout());
         contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
         getContentPane().add(contentPanel, BorderLayout.CENTER);
-        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
-        {
-            JPanel panel = new JPanel();
-            contentPanel.add(panel);
-            panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-            {
-                rdbtnNewRadioButton = new JRadioButton("New radio button");
-                buttonGroup.add(rdbtnNewRadioButton);
-                panel.add(rdbtnNewRadioButton);
-            }
-        }
-        {
-            JPanel panel = new JPanel();
-            contentPanel.add(panel);
-            panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-            {
-                JLabel lblAaaa = new JLabel("aaaa");
-                panel.add(lblAaaa);
-            }
-            {
-                textField = new JTextField();
-                panel.add(textField);
-                textField.setColumns(10);
-            }
-        }
-        {
-            JPanel panel = new JPanel();
-            contentPanel.add(panel);
-            panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-            {
-                JLabel lblNewLabel = new JLabel("New label");
-                panel.add(lblNewLabel);
-            }
-            {
-                textField_1 = new JTextField();
-                panel.add(textField_1);
-                textField_1.setColumns(10);
-            }
-        }
-        {
-            JPanel panel = new JPanel();
-            contentPanel.add(panel);
-            panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-            {
-                JLabel lblNewLabel_1 = new JLabel("New label");
-                panel.add(lblNewLabel_1);
-            }
-            {
-                textField_2 = new JTextField();
-                panel.add(textField_2);
-                textField_2.setColumns(10);
-            }
-        }
-        {
-            JPanel panel = new JPanel();
-            contentPanel.add(panel);
-            {
-                JLabel lblNewLabel_2 = new JLabel("New label");
-                panel.add(lblNewLabel_2);
-            }
-            {
-                textField_3 = new JTextField();
-                panel.add(textField_3);
-                textField_3.setColumns(10);
-            }
-        }
+        
+        JLabel lblMode = new JLabel("mode");
+        
+        JRadioButton rdbtnServer = new JRadioButton("server");
+        buttonGroup.add(rdbtnServer);
+        
+        JRadioButton rdbtnClient = new JRadioButton("client");
+        buttonGroup.add(rdbtnClient);
+        
+        JLabel lblHost = new JLabel("host");
+        
+        textField = new JTextField();
+        textField.setColumns(10);
+        
+        JLabel lblPort = new JLabel("port");
+        
+        JFormattedTextField formattedTextField = new JFormattedTextField();
+        GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
+        gl_contentPanel.setHorizontalGroup(
+            gl_contentPanel.createParallelGroup(Alignment.LEADING)
+                .addGroup(gl_contentPanel.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING, false)
+                        .addGroup(gl_contentPanel.createSequentialGroup()
+                            .addComponent(lblMode)
+                            .addGap(18)
+                            .addComponent(rdbtnServer)
+                            .addPreferredGap(ComponentPlacement.UNRELATED)
+                            .addComponent(rdbtnClient))
+                        .addGroup(gl_contentPanel.createSequentialGroup()
+                            .addComponent(lblHost)
+                            .addPreferredGap(ComponentPlacement.UNRELATED)
+                            .addComponent(textField))
+                        .addGroup(gl_contentPanel.createSequentialGroup()
+                            .addComponent(lblPort)
+                            .addPreferredGap(ComponentPlacement.UNRELATED)
+                            .addComponent(formattedTextField)))
+                    .addContainerGap(236, Short.MAX_VALUE))
+        );
+        gl_contentPanel.setVerticalGroup(
+            gl_contentPanel.createParallelGroup(Alignment.LEADING)
+                .addGroup(gl_contentPanel.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
+                        .addComponent(lblMode)
+                        .addComponent(rdbtnServer)
+                        .addComponent(rdbtnClient))
+                    .addPreferredGap(ComponentPlacement.UNRELATED)
+                    .addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
+                        .addComponent(lblHost)
+                        .addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(ComponentPlacement.UNRELATED)
+                    .addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
+                        .addComponent(lblPort)
+                        .addComponent(formattedTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(138, Short.MAX_VALUE))
+        );
+        gl_contentPanel.setAutoCreateGaps(true);
+        gl_contentPanel.setAutoCreateContainerGaps(true);
+        contentPanel.setLayout(gl_contentPanel);
         {
             JPanel buttonPane = new JPanel();
             buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
             getContentPane().add(buttonPane, BorderLayout.SOUTH);
             {
-                JButton okButton = new JButton("OK");
+                okButton = new JButton("OK");
                 okButton.setActionCommand("OK");
                 buttonPane.add(okButton);
                 getRootPane().setDefaultButton(okButton);
             }
             {
-                JButton cancelButton = new JButton("Cancel");
+                cancelButton = new JButton("Cancel");
                 cancelButton.setActionCommand("Cancel");
                 buttonPane.add(cancelButton);
             }
         }
+    }
+    public JButton getCancelButton() {
+        return cancelButton;
+    }
+    public JButton getOkButton() {
+        return okButton;
     }
 }

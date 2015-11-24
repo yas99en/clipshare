@@ -30,7 +30,7 @@ public class ClipShare {
                     config.setPort(Integer.parseInt(args[i+1]));
                     i++;
                 }
-            } else if(arg.equals("--clientServerHost")) {
+            } else if(arg.equals("--host")) {
                 if(i < args.length-1) {
                     config.setClientServerHost(args[i+1]);
                     i++;

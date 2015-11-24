@@ -9,6 +9,8 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 
 import javax.swing.SwingUtilities;
@@ -29,6 +31,19 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
 
     public IconPresenter() throws IOException, AWTException {
         icon.exitItem.addActionListener(e -> System.exit(0));
+        
+        icon.settingsItem.addActionListener(e -> {
+            SettingDialog dialog = new SettingDialog();
+            dialog.getOkButton().addActionListener(ev -> dialog.setVisible(false));
+            dialog.getCancelButton().addActionListener(ev -> dialog.setVisible(false));
+            dialog.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    dialog.setVisible(false);
+                }
+            });
+            dialog.setVisible(true);
+        });
 
         icon.trayIcon.addMouseListener(new MouseAdapter() {
             @Override
