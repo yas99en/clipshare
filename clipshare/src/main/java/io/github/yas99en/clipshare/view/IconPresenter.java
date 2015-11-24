@@ -30,11 +30,7 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
 
     public IconPresenter() throws IOException, AWTException {
         icon.exitItem.addActionListener(e -> System.exit(0));
-        
-        icon.settingsItem.addActionListener(e -> {
-            getSettingDialogPresenter().show();
-        });
-
+        icon.settingsItem.addActionListener(e -> getSettingDialogPresenter().show());
         icon.trayIcon.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -43,7 +39,6 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
                 }
             }
         });
-
         server.setListener(this);
         client.setListener(this);
     }
