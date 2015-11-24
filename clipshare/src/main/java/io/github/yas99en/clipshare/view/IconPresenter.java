@@ -20,12 +20,12 @@ import io.github.yas99en.clipshare.model.ClipShareContext;
 import io.github.yas99en.clipshare.model.ClipShareServer;;
 
 public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.Listener {
-    private ClipShareContext context = ClipShareContext.getInstance();
-    private ClipShareServer server = context.getServer();
-    private ClipShareClient client = context.getClient();
-    private ClipShareIcon icon = new ClipShareIcon();
-    private Toolkit kit = Toolkit.getDefaultToolkit();
-    private Clipboard clip = kit.getSystemClipboard();
+    private final ClipShareContext context = ClipShareContext.getInstance();
+    private final ClipShareServer server = context.getServer();
+    private final ClipShareClient client = context.getClient();
+    private final ClipShareIcon icon = new ClipShareIcon();
+    private final Toolkit kit = Toolkit.getDefaultToolkit();
+    private final Clipboard clip = kit.getSystemClipboard();
     private SettingDialogPresenter settingDialogPresenter;
 
     public IconPresenter() throws IOException, AWTException {
