@@ -51,7 +51,7 @@ public class SettingDialogPresenter {
         try {
             config.flush();
         } catch (BackingStoreException ex) {
-            iconPresenter.showMessage(ex.getMessage());
+            iconPresenter.showMessage(ex.getLocalizedMessage());
         }
     }
 
