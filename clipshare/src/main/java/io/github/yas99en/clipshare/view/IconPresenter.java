@@ -45,7 +45,7 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
 
     private SettingDialogPresenter getSettingDialogPresenter() {
         if(settingDialogPresenter == null) {
-            settingDialogPresenter = new SettingDialogPresenter();
+            settingDialogPresenter = new SettingDialogPresenter(this);
         }
         return settingDialogPresenter;
     }
@@ -69,6 +69,11 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
         }
     }
 
+    public void serverStartFailed() {
+        icon.displayMessage(Msgs.m("AppName"),
+                "Server start failed", TrayIcon.MessageType.NONE);
+    }
+
     public void start() {
         ClipShareConfig config = context.getConfig();
         boolean serverMode = config.isServerMode();
@@ -77,8 +82,7 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
             try {
                 server.start(serverPort);
             } catch (DeploymentException e) {
-                icon.displayMessage(Msgs.m("AppName"),
-                        "Server start failed", TrayIcon.MessageType.NONE);
+                serverStartFailed();
             }
         } else {
             String host = config.getHost();

@@ -35,7 +35,9 @@ public class ClipShareServer {
     }
     
     public void stop() {
-        server.stop();
+        if(server != null) {
+            server.stop();
+        }
         server = null;
     }
 
