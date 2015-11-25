@@ -23,6 +23,9 @@ public class SettingDialog extends JDialog {
     private JTextField hostField;
     private JButton cancelButton;
     private JButton okButton;
+    private JRadioButton serverMode;
+    private JFormattedTextField portField;
+    private JRadioButton clientMode;
 
     /**
      * Launch the application.
@@ -50,10 +53,10 @@ public class SettingDialog extends JDialog {
         
         JLabel modeLabel = new JLabel("mode");
         
-        JRadioButton serverMode = new JRadioButton("server");
+        serverMode = new JRadioButton("server");
         buttonGroup.add(serverMode);
         
-        JRadioButton clientMode = new JRadioButton("client");
+        clientMode = new JRadioButton("client");
         buttonGroup.add(clientMode);
         
         JLabel hostLabel = new JLabel("host");
@@ -63,7 +66,7 @@ public class SettingDialog extends JDialog {
         
         JLabel portLabel = new JLabel("port");
         
-        JFormattedTextField portField = new JFormattedTextField();
+        portField = new JFormattedTextField();
         GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
         gl_contentPanel.setHorizontalGroup(
             gl_contentPanel.createParallelGroup(Alignment.LEADING)
@@ -129,5 +132,17 @@ public class SettingDialog extends JDialog {
     }
     public JButton getOkButton() {
         return okButton;
+    }
+    public JRadioButton getServerMode() {
+        return serverMode;
+    }
+    public JTextField getHostField() {
+        return hostField;
+    }
+    public JFormattedTextField getPortField() {
+        return portField;
+    }
+    public JRadioButton getClientMode() {
+        return clientMode;
     }
 }

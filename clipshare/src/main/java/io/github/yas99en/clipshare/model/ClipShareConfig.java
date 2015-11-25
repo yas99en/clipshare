@@ -17,19 +17,19 @@ public class ClipShareConfig {
     }
 
     public void setPort(int port) {
-        prefs.putInt("serverPort", port);
+        prefs.putInt("port", port);
     }
 
     public int getPort() {
-        return prefs.getInt("serverPort", DEFAULT_PORT);
+        return prefs.getInt("port", DEFAULT_PORT);
     }
 
-    public void setClientServerHost(String host) {
-        prefs.put("client.serverHost", host);
+    public void setHost(String host) {
+        prefs.put("host", host);
     }
 
-    public String getClientServerHost() {
-        return prefs.get("client.serverHost", null);
+    public String getHost() {
+        return prefs.get("host", null);
     }
 
     public void clear() throws BackingStoreException {

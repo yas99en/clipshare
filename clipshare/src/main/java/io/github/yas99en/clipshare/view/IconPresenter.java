@@ -81,7 +81,7 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
                         "Server start failed", TrayIcon.MessageType.NONE);
             }
         } else {
-            String host = config.getClientServerHost();
+            String host = config.getHost();
             if(host == null) {
                 return;
             }
