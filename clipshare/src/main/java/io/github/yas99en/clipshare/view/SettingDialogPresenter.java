@@ -3,6 +3,7 @@ package io.github.yas99en.clipshare.view;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.prefs.BackingStoreException;
 
 import javax.websocket.DeploymentException;
 
@@ -46,6 +47,11 @@ public class SettingDialogPresenter {
         } else {
             config.setServerMode(false);
             context.getClient().start(config.getHost(), config.getPort());
+        }
+        try {
+            config.flush();
+        } catch (BackingStoreException ex) {
+            iconPresenter.showMessage(ex.getMessage());
         }
     }
 

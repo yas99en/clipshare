@@ -70,8 +70,11 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
     }
 
     public void serverStartFailed() {
-        icon.displayMessage(Msgs.m("AppName"),
-                "Server start failed", TrayIcon.MessageType.NONE);
+        showMessage("Server start failed");
+    }
+
+    public void showMessage(String message) {
+        icon.displayMessage(Msgs.m("AppName"), message, TrayIcon.MessageType.NONE);
     }
 
     public void start() {

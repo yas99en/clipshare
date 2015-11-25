@@ -35,4 +35,8 @@ public class ClipShareConfig {
     public void clear() throws BackingStoreException {
         prefs.clear();
     }
+
+    public void flush() throws BackingStoreException {
+        prefs.flush();
+    }
 }
