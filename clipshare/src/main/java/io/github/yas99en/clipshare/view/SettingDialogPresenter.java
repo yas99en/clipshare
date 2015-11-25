@@ -7,8 +7,8 @@ public class SettingDialogPresenter {
     private final SettingDialog dialog = new SettingDialog();
 
     public SettingDialogPresenter() {
-        dialog.getOkButton().addActionListener(ev -> dialog.setVisible(false));
-        dialog.getCancelButton().addActionListener(ev -> dialog.setVisible(false));
+        dialog.getOkButton().addActionListener(e -> dialog.setVisible(false));
+        dialog.getCancelButton().addActionListener(e -> dialog.setVisible(false));
         dialog.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
