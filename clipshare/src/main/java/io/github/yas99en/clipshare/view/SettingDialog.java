@@ -20,7 +20,7 @@ public class SettingDialog extends JDialog {
 
     private final JPanel contentPanel = new JPanel();
     private final ButtonGroup buttonGroup = new ButtonGroup();
-    private JTextField textField;
+    private JTextField hostField;
     private JButton cancelButton;
     private JButton okButton;
 
@@ -48,22 +48,22 @@ public class SettingDialog extends JDialog {
         contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
         getContentPane().add(contentPanel, BorderLayout.CENTER);
         
-        JLabel lblMode = new JLabel("mode");
+        JLabel modeLabel = new JLabel("mode");
         
-        JRadioButton rdbtnServer = new JRadioButton("server");
-        buttonGroup.add(rdbtnServer);
+        JRadioButton serverMode = new JRadioButton("server");
+        buttonGroup.add(serverMode);
         
-        JRadioButton rdbtnClient = new JRadioButton("client");
-        buttonGroup.add(rdbtnClient);
+        JRadioButton clientMode = new JRadioButton("client");
+        buttonGroup.add(clientMode);
         
-        JLabel lblHost = new JLabel("host");
+        JLabel hostLabel = new JLabel("host");
         
-        textField = new JTextField();
-        textField.setColumns(10);
+        hostField = new JTextField();
+        hostField.setColumns(10);
         
-        JLabel lblPort = new JLabel("port");
+        JLabel portLabel = new JLabel("port");
         
-        JFormattedTextField formattedTextField = new JFormattedTextField();
+        JFormattedTextField portField = new JFormattedTextField();
         GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
         gl_contentPanel.setHorizontalGroup(
             gl_contentPanel.createParallelGroup(Alignment.LEADING)
@@ -71,19 +71,19 @@ public class SettingDialog extends JDialog {
                     .addContainerGap()
                     .addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING, false)
                         .addGroup(gl_contentPanel.createSequentialGroup()
-                            .addComponent(lblMode)
+                            .addComponent(modeLabel)
                             .addGap(18)
-                            .addComponent(rdbtnServer)
+                            .addComponent(serverMode)
                             .addPreferredGap(ComponentPlacement.UNRELATED)
-                            .addComponent(rdbtnClient))
+                            .addComponent(clientMode))
                         .addGroup(gl_contentPanel.createSequentialGroup()
-                            .addComponent(lblHost)
+                            .addComponent(hostLabel)
                             .addPreferredGap(ComponentPlacement.UNRELATED)
-                            .addComponent(textField))
+                            .addComponent(hostField))
                         .addGroup(gl_contentPanel.createSequentialGroup()
-                            .addComponent(lblPort)
+                            .addComponent(portLabel)
                             .addPreferredGap(ComponentPlacement.UNRELATED)
-                            .addComponent(formattedTextField)))
+                            .addComponent(portField)))
                     .addContainerGap(236, Short.MAX_VALUE))
         );
         gl_contentPanel.setVerticalGroup(
@@ -91,17 +91,17 @@ public class SettingDialog extends JDialog {
                 .addGroup(gl_contentPanel.createSequentialGroup()
                     .addContainerGap()
                     .addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-                        .addComponent(lblMode)
-                        .addComponent(rdbtnServer)
-                        .addComponent(rdbtnClient))
+                        .addComponent(modeLabel)
+                        .addComponent(serverMode)
+                        .addComponent(clientMode))
                     .addPreferredGap(ComponentPlacement.UNRELATED)
                     .addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-                        .addComponent(lblHost)
-                        .addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(hostLabel)
+                        .addComponent(hostField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(ComponentPlacement.UNRELATED)
                     .addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-                        .addComponent(lblPort)
-                        .addComponent(formattedTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(portLabel)
+                        .addComponent(portField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                     .addContainerGap(138, Short.MAX_VALUE))
         );
         gl_contentPanel.setAutoCreateGaps(true);
