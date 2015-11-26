@@ -5,6 +5,8 @@ import java.lang.reflect.Proxy;
 import javax.swing.SwingUtilities;
 
 public class InvokeLaterProxy {
+    private InvokeLaterProxy() {}
+
     @SuppressWarnings("unchecked")
     public static <T> T makeProxy(Class<T> clazz, T obj) {
         return (T)Proxy.newProxyInstance(obj.getClass().getClassLoader(), new Class<?>[]{clazz},
