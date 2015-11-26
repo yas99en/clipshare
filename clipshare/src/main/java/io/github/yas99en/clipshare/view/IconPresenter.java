@@ -52,7 +52,6 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
     }
 
     private void onClicked() {
-
         try {
             String data = (String) clip.getData(DataFlavor.stringFlavor);
             if(data == null) {
