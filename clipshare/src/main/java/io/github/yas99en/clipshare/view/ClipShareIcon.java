@@ -26,7 +26,7 @@ public class ClipShareIcon {
         Image image = ImageIO.read(ClipShareIcon.class.getResourceAsStream(iconFileName));
         menu.add(settingsItem);
         menu.add(exitItem);
-        trayIcon = new TrayIcon(image, Messages.getString("AppName"), menu);
+        trayIcon = new TrayIcon(image, Messages.getString("appName"), menu);
         tray.add(trayIcon);
     }
 
