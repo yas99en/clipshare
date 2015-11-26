@@ -72,8 +72,7 @@ public class SettingDialog extends JDialog {
         try {
             portField = new JFormattedTextField(new MaskFormatter("#####"));
         } catch (ParseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
         gl_contentPanel.setHorizontalGroup(
