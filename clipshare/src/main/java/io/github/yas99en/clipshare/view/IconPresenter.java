@@ -11,7 +11,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 
-import javax.swing.SwingUtilities;
 import javax.websocket.DeploymentException;
 
 import io.github.yas99en.clipshare.model.ClipShareClient;
@@ -26,7 +25,7 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
     private final ClipShareConfig config = context.getConfig();
     private final ClipShareIcon icon = new ClipShareIcon();
     private final Toolkit kit = Toolkit.getDefaultToolkit();
-    private final Clipboard clip = kit.getSystemClipboard();
+    private final Clipboard clipboard = kit.getSystemClipboard();
     private SettingDialogPresenter settingDialogPresenter;
 
     public IconPresenter() throws IOException, AWTException {
@@ -40,8 +39,8 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
                 }
             }
         });
-        server.setListener(this);
-        client.setListener(this);
+        server.setListener(InvokeLaterProxy.makeProxy(ClipShareServer.Listener.class, this));
+        client.setListener(InvokeLaterProxy.makeProxy(ClipShareClient.Listener.class, this));
     }
 
     private SettingDialogPresenter getSettingDialogPresenter() {
@@ -53,7 +52,7 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
 
     private void onClicked() {
         try {
-            String data = (String) clip.getData(DataFlavor.stringFlavor);
+            String data = (String) clipboard.getData(DataFlavor.stringFlavor);
             if(data == null) {
                 return;
             }
@@ -81,7 +80,6 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
     }
 
     public void start() {
-        ClipShareConfig config = context.getConfig();
         boolean serverMode = config.isServerMode();
         if(serverMode) {
             int serverPort = config.getPort();
@@ -102,18 +100,17 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
 
     @Override
     public void onServerMessage(String message) {
-        SwingUtilities.invokeLater(() -> {
-            StringSelection ss = new StringSelection(message);
-            clip.setContents(ss, ss);
-            server.broadCast(message);
-        });
+        setClipboad(message);
+        server.broadCast(message);
     }
 
     @Override
     public void onClientMessage(String message) {
-        SwingUtilities.invokeLater(() -> {
-            StringSelection ss = new StringSelection(message);
-            clip.setContents(ss, ss);
-        });
+        setClipboad(message);
+    }
+
+    private void setClipboad(String data) {
+        StringSelection ss = new StringSelection(data);
+        clipboard.setContents(ss, ss);
     }
 }
