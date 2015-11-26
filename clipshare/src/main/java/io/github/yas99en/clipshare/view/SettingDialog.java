@@ -2,6 +2,7 @@ package io.github.yas99en.clipshare.view;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.text.ParseException;
 
 import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
@@ -15,6 +16,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
 
 public class SettingDialog extends JDialog {
 
@@ -62,11 +64,17 @@ public class SettingDialog extends JDialog {
         JLabel hostLabel = new JLabel(Messages.getString("SettingDialog.hostLabel"));
         
         hostField = new JTextField();
+        hostField.setToolTipText(Messages.getString("SettingDialog.hostTooltip")); //$NON-NLS-1$
         hostField.setColumns(10);
         
         JLabel portLabel = new JLabel(Messages.getString("SettingDialog.portLabel"));
         
-        portField = new JFormattedTextField();
+        try {
+            portField = new JFormattedTextField(new MaskFormatter("#####"));
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
         gl_contentPanel.setHorizontalGroup(
             gl_contentPanel.createParallelGroup(Alignment.LEADING)

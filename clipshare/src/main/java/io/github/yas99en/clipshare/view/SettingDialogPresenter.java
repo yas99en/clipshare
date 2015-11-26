@@ -19,6 +19,7 @@ public class SettingDialogPresenter {
     public SettingDialogPresenter(IconPresenter iconPresenter) {
         dialog.getOkButton().addActionListener(this::onOk);
         dialog.getCancelButton().addActionListener(e -> dialog.setVisible(false));
+
         dialog.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
