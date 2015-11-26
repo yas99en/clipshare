@@ -70,7 +70,7 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
     }
 
     public void serverStartFailed() {
-        showMessage("Server start failed");
+        showMessage(Messages.getString("ClipShareIcon.serverStartFailed"));
     }
 
     public void showMessage(String message) {
