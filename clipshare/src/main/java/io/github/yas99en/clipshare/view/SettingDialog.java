@@ -44,27 +44,27 @@ public class SettingDialog extends JDialog {
      * Create the dialog.
      */
     public SettingDialog() {
-        setTitle(Messages.getString("SettingDialog.this.title")); //$NON-NLS-1$
+        setTitle(Messages.getString("SettingDialog.title"));
         setBounds(100, 100, 282, 200);
         setLocationByPlatform(true);
         getContentPane().setLayout(new BorderLayout());
         contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
         getContentPane().add(contentPanel, BorderLayout.CENTER);
         
-        JLabel modeLabel = new JLabel(Messages.getString("SettingDialog.modeLabel.text"));
+        JLabel modeLabel = new JLabel(Messages.getString("SettingDialog.modeLabel"));
         
-        serverMode = new JRadioButton(Messages.getString("SettingDialog.serverMode.text"));
+        serverMode = new JRadioButton(Messages.getString("SettingDialog.serverMode"));
         buttonGroup.add(serverMode);
         
-        clientMode = new JRadioButton(Messages.getString("SettingDialog.clientMode.text"));
+        clientMode = new JRadioButton(Messages.getString("SettingDialog.clientMode"));
         buttonGroup.add(clientMode);
         
-        JLabel hostLabel = new JLabel(Messages.getString("SettingDialog.hostLabel.text"));
+        JLabel hostLabel = new JLabel(Messages.getString("SettingDialog.hostLabel"));
         
         hostField = new JTextField();
         hostField.setColumns(10);
         
-        JLabel portLabel = new JLabel(Messages.getString("SettingDialog.portLabel.text"));
+        JLabel portLabel = new JLabel(Messages.getString("SettingDialog.portLabel"));
         
         portField = new JFormattedTextField();
         GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
@@ -115,13 +115,13 @@ public class SettingDialog extends JDialog {
             buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
             getContentPane().add(buttonPane, BorderLayout.SOUTH);
             {
-                okButton = new JButton(Messages.getString("SettingDialog.okButton.text"));
+                okButton = new JButton(Messages.getString("SettingDialog.okButton"));
                 okButton.setActionCommand(Messages.getString("ok"));
                 buttonPane.add(okButton);
                 getRootPane().setDefaultButton(okButton);
             }
             {
-                cancelButton = new JButton(Messages.getString("SettingDialog.cancelButton.text"));
+                cancelButton = new JButton(Messages.getString("SettingDialog.cancelButton"));
                 cancelButton.setActionCommand(Messages.getString("ng"));
                 buttonPane.add(cancelButton);
             }
