@@ -23,6 +23,7 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
     private final ClipShareContext context = ClipShareContext.getInstance();
     private final ClipShareServer server = context.getServer();
     private final ClipShareClient client = context.getClient();
+    private final ClipShareConfig config = context.getConfig();
     private final ClipShareIcon icon = new ClipShareIcon();
     private final Toolkit kit = Toolkit.getDefaultToolkit();
     private final Clipboard clip = kit.getSystemClipboard();
@@ -51,21 +52,24 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
     }
 
     private void onClicked() {
-        ClipShareConfig config = context.getConfig();
 
         try {
             String data = (String) clip.getData(DataFlavor.stringFlavor);
             if(data == null) {
                 return;
             }
-            boolean serverMode = config.isServerMode();
-            if(serverMode) {
-                server.broadCast(data);
-            } else {
-                client.sendMessage(data);
-            }
+            sendMessage(data);
         } catch (UnsupportedFlavorException | IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void sendMessage(String data) {
+        boolean serverMode = config.isServerMode();
+        if(serverMode) {
+            server.broadCast(data);
+        } else {
+            client.sendMessage(data);
         }
     }
 
