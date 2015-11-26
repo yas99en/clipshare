@@ -41,10 +41,10 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
         });
         server.setListener(InvokeLaterProxy.makeProxy(ClipShareServer.Listener.class, this));
         client.setListener(InvokeLaterProxy.makeProxy(ClipShareClient.Listener.class, this));
-        updateToolTip();
+        update();
     }
 
-    public void updateToolTip() {
+    public void update() {
         String key = config.isServerMode() ? "ClipShareIcon.tooltip.server" : "ClipShareIcon.tooltip.client";
         String tooltip = Messages.getString(key);
         icon.trayIcon.setToolTip(tooltip);

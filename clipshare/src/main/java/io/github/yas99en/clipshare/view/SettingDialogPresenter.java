@@ -49,7 +49,7 @@ public class SettingDialogPresenter {
             context.getClient().start(config.getHost(), config.getPort());
         }
 
-        iconPresenter.updateToolTip();
+        iconPresenter.update();
 
         try {
             config.flush();
