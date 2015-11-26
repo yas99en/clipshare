@@ -18,6 +18,9 @@ import javax.websocket.WebSocketContainer;
 
 @ClientEndpoint
 public class ClipShareClient {
+    private static final int INITIAL_DELAY = 0;
+    private static final int PERIOD = 5;
+
     public interface Listener {
         void onClientMessage(String message);
     }
@@ -49,7 +52,7 @@ public class ClipShareClient {
                 ses.shutdown();
                 ses = null;
             }
-        }, 0, 5, TimeUnit.SECONDS);
+        }, INITIAL_DELAY, PERIOD, TimeUnit.SECONDS);
     }
 
     private Session connectTo(String host, int port) {
