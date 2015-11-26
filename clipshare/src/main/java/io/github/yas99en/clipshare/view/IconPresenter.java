@@ -65,7 +65,7 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
             }
             sendMessage(data);
         } catch (UnsupportedFlavorException | IOException e) {
-            showMessage(e.getMessage());
+            showMessage(e.getLocalizedMessage());
         }
     }
 
