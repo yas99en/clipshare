@@ -33,7 +33,7 @@ public class SettingDialogPresenter {
 
         context.getServer().stop();
         context.getClient().stop();
-
+        
         config.setHost(dialog.getHostField().getText());
         config.setPort(Integer.parseInt(dialog.getPortField().getText()));
 
@@ -48,6 +48,9 @@ public class SettingDialogPresenter {
             config.setServerMode(false);
             context.getClient().start(config.getHost(), config.getPort());
         }
+
+        iconPresenter.updateToolTip();
+
         try {
             config.flush();
         } catch (BackingStoreException ex) {
