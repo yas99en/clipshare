@@ -14,11 +14,11 @@ public class ClipShare {
 
     public static void main(String[] args) throws BackingStoreException {
         ClipShareConfig config = ClipShareContext.getInstance().getConfig();
-        args2Prefs(args, config);
+        args2Config(args, config);
         SwingUtilities.invokeLater(ClipShare::run);
     }
 
-    public static void args2Prefs(String[] args, ClipShareConfig config) throws BackingStoreException {
+    public static void args2Config(String[] args, ClipShareConfig config) throws BackingStoreException {
         for(int i = 0; i < args.length; i++) {
             String arg = args[i];
             if(arg.equals("--serverMode")) {
