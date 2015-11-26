@@ -9,7 +9,9 @@ public class InvokeLaterProxy {
 
     @SuppressWarnings("unchecked")
     public static <T> T makeProxy(Class<T> clazz, T obj) {
-        return (T)Proxy.newProxyInstance(obj.getClass().getClassLoader(), new Class<?>[]{clazz},
+        return (T) Proxy.newProxyInstance(
+                obj.getClass().getClassLoader(),
+                new Class<?>[]{clazz},
                 (proxy, method, args) -> {
                     SwingUtilities.invokeLater(() -> {
                         try {
