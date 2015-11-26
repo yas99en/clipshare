@@ -116,13 +116,11 @@ public class SettingDialog extends JDialog {
             getContentPane().add(buttonPane, BorderLayout.SOUTH);
             {
                 okButton = new JButton(Messages.getString("SettingDialog.okButton"));
-                okButton.setActionCommand(Messages.getString("ok"));
                 buttonPane.add(okButton);
                 getRootPane().setDefaultButton(okButton);
             }
             {
                 cancelButton = new JButton(Messages.getString("SettingDialog.cancelButton"));
-                cancelButton.setActionCommand(Messages.getString("ng"));
                 buttonPane.add(cancelButton);
             }
         }
