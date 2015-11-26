@@ -44,27 +44,27 @@ public class SettingDialog extends JDialog {
      * Create the dialog.
      */
     public SettingDialog() {
-        setTitle("ClipShare Settings");
-        setBounds(100, 100, 239, 200);
+        setTitle(Messages.getString("SettingDialog.this.title")); //$NON-NLS-1$
+        setBounds(100, 100, 282, 200);
         setLocationByPlatform(true);
         getContentPane().setLayout(new BorderLayout());
         contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
         getContentPane().add(contentPanel, BorderLayout.CENTER);
         
-        JLabel modeLabel = new JLabel("mode");
+        JLabel modeLabel = new JLabel(Messages.getString("SettingDialog.modeLabel.text"));
         
-        serverMode = new JRadioButton("server");
+        serverMode = new JRadioButton(Messages.getString("SettingDialog.serverMode.text"));
         buttonGroup.add(serverMode);
         
-        clientMode = new JRadioButton("client");
+        clientMode = new JRadioButton(Messages.getString("SettingDialog.clientMode.text"));
         buttonGroup.add(clientMode);
         
-        JLabel hostLabel = new JLabel("host");
+        JLabel hostLabel = new JLabel(Messages.getString("SettingDialog.hostLabel.text"));
         
         hostField = new JTextField();
         hostField.setColumns(10);
         
-        JLabel portLabel = new JLabel("port");
+        JLabel portLabel = new JLabel(Messages.getString("SettingDialog.portLabel.text"));
         
         portField = new JFormattedTextField();
         GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
@@ -115,14 +115,14 @@ public class SettingDialog extends JDialog {
             buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
             getContentPane().add(buttonPane, BorderLayout.SOUTH);
             {
-                okButton = new JButton("OK");
-                okButton.setActionCommand("OK");
+                okButton = new JButton(Messages.getString("SettingDialog.okButton.text"));
+                okButton.setActionCommand(Messages.getString("ok"));
                 buttonPane.add(okButton);
                 getRootPane().setDefaultButton(okButton);
             }
             {
-                cancelButton = new JButton("Cancel");
-                cancelButton.setActionCommand("Cancel");
+                cancelButton = new JButton(Messages.getString("SettingDialog.cancelButton.text"));
+                cancelButton.setActionCommand(Messages.getString("ng"));
                 buttonPane.add(cancelButton);
             }
         }

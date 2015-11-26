@@ -13,9 +13,9 @@ import javax.imageio.ImageIO;
 
 public class ClipShareIcon {
     final TrayIcon trayIcon;
-    final PopupMenu menu = new PopupMenu(Msgs.m("AppName"));
-    final MenuItem settingsItem = new MenuItem(Msgs.m("ClipShareIcon.Settings"));
-    final MenuItem exitItem = new MenuItem(Msgs.m("ClipShareIcon.Exit"));
+    final PopupMenu menu = new PopupMenu(Messages.getString("AppName"));
+    final MenuItem settingsItem = new MenuItem(Messages.getString("ClipShareIcon.Settings"));
+    final MenuItem exitItem = new MenuItem(Messages.getString("ClipShareIcon.Exit"));
 
     public ClipShareIcon() throws IOException, AWTException {
         SystemTray tray = SystemTray.getSystemTray();
@@ -26,7 +26,7 @@ public class ClipShareIcon {
         Image image = ImageIO.read(ClipShareIcon.class.getResourceAsStream(iconFileName));
         menu.add(settingsItem);
         menu.add(exitItem);
-        trayIcon = new TrayIcon(image, Msgs.m("AppName"), menu);
+        trayIcon = new TrayIcon(image, Messages.getString("AppName"), menu);
         tray.add(trayIcon);
     }
 
