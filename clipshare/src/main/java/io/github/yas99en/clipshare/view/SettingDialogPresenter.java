@@ -33,7 +33,7 @@ public class SettingDialogPresenter {
 
         context.getServer().stop();
         context.getClient().stop();
-        
+
         config.setHost(dialog.getHostField().getText());
         config.setPort(Integer.parseInt(dialog.getPortField().getText()));
 
