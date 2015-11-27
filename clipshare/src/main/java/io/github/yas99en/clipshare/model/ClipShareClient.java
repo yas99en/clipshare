@@ -10,7 +10,6 @@ import javax.websocket.ClientEndpoint;
 import javax.websocket.ContainerProvider;
 import javax.websocket.DeploymentException;
 import javax.websocket.OnClose;
-import javax.websocket.OnError;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
@@ -31,26 +30,41 @@ public class ClipShareClient {
     private int port;
     private ScheduledExecutorService ses;
     private boolean started;
+    private final Object lock = new Object();
 
     public void setListener(Listener listener) {
-        this.listener = listener;
+        synchronized (lock) {
+            this.listener = listener;
+        }
     }
 
     public void start(String host, int port)  {
-        started = true;
-        this.host = host;
-        this.port = port;
+        synchronized (lock) {
+            if(started) {
+                throw new IllegalStateException("already started");
+            }
+            started = true;
+            this.host = host;
+            this.port = port;
+        }
 
         startConnection();
     }
 
     private void startConnection() {
-        ses = Executors.newScheduledThreadPool(1);
+        synchronized (lock) {
+            ses = Executors.newScheduledThreadPool(1);
+        }
         ses.scheduleAtFixedRate(() -> {
-            session = connectTo(this.host, this.port);
-            if(session != null) {
-                ses.shutdown();
-                ses = null;
+            synchronized (lock) {
+                if(!started) {
+                    return;
+                }
+                session = connectTo(this.host, this.port);
+                if(session != null) {
+                    ses.shutdown();
+                    ses = null;
+                }
             }
         }, INITIAL_DELAY, PERIOD, TimeUnit.SECONDS);
     }
@@ -69,24 +83,22 @@ public class ClipShareClient {
     }
 
     public void stop() {
-        started = false;
-        if(ses != null) {
-            ses.shutdown();
-            try {
-                ses.awaitTermination(5, TimeUnit.SECONDS);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        synchronized (lock) {
+            started = false;
+            if(ses != null) {
+                ses.shutdown();
+                ses = null;
             }
-        }
 
-        if(session != null) {
-            try {
-                session.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+            if(session != null) {
+                try {
+                    session.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+            session = null;
         }
-        session = null;
     }
 
     @OnOpen
@@ -97,28 +109,33 @@ public class ClipShareClient {
     @OnMessage
     public void onMessage(Session session, String message) {
         System.out.println("message: "+message);
-        if(listener != null) {
-            listener.onClientMessage(message);
+        Listener l = null;
+        synchronized (lock) {
+            l = listener;
         }
-    }
-
-    @OnError
-    public void onError(Throwable t) {
-        t.printStackTrace();
+        if(l != null) {
+            l.onClientMessage(message);
+        }
     }
 
     @OnClose
     public void onClose(Session session) {
         System.out.println("close: " + session.getId());
-        session = null;
-        if(started) {
-            startConnection();
+        synchronized (lock) {
+            session = null;
+            if(started) {
+                startConnection();
+            }
         }
     }
 
     public void sendMessage(String message) {
-        if(session != null) {
-            session.getAsyncRemote().sendText(message);
+        Session s = null;
+        synchronized (lock) {
+            s = session;
+        }
+        if(s != null) {
+            s.getAsyncRemote().sendText(message);
         }
     }
 }
