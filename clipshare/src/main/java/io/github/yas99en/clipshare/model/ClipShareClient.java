@@ -85,7 +85,7 @@ public class ClipShareClient {
     public void stop() {
         synchronized (lock) {
             if(!started) {
-                throw new IllegalAccessError("already stopped");
+                return;
             }
             started = false;
             if(ses != null) {
