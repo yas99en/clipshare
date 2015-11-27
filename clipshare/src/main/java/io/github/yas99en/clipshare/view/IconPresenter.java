@@ -83,7 +83,7 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
     }
 
     public void showMessage(String message) {
-        icon.displayMessage(Messages.getString("AppName"), message, TrayIcon.MessageType.NONE);
+        icon.displayMessage(Messages.getString("appName"), message, TrayIcon.MessageType.NONE);
     }
 
     public void start() {
