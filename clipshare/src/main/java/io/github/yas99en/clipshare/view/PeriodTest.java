@@ -1,5 +1,6 @@
 package io.github.yas99en.clipshare.view;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.Period;
 
@@ -15,10 +16,14 @@ public class PeriodTest {
         LocalDate date2 = date1.plus(oneMonth);
         System.out.println(date2);
         System.out.println(Period.between(date1, date2));
+        Duration d = Duration.between(date1.atStartOfDay(), date2.atStartOfDay());
+        System.out.println(d);
 
         LocalDate date3 = LocalDate.of(2016, 1, 31);
         LocalDate date4 = date3.plus(oneMonth);
         System.out.println(date4);
         System.out.println(Period.between(date3, date4));
+        Duration d2 = Duration.between(date3.atStartOfDay(), date4.atStartOfDay());
+        System.out.println(d2);
     }
 }
