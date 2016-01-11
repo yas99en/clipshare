@@ -5,6 +5,7 @@ import java.net.URI;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 import javax.websocket.ClientEndpoint;
 import javax.websocket.ContainerProvider;
@@ -17,6 +18,7 @@ import javax.websocket.WebSocketContainer;
 
 @ClientEndpoint
 public class ClipShareClient {
+    private static final Logger logger = Logger.getLogger(ClipShareClient.class.getName());
     private static final int INITIAL_DELAY = 0;
     private static final int PERIOD = 5;
 
@@ -106,12 +108,12 @@ public class ClipShareClient {
 
     @OnOpen
     public void onOpen(Session session) {
-        System.out.println("open: " + session.getId());
+        logger.info("open: " + session.getId());
     }
 
     @OnMessage
     public void onMessage(Session session, String message) {
-        System.out.println("message: "+message);
+        logger.info("message: "+message);
         Listener l = null;
         synchronized (lock) {
             l = listener;
@@ -123,7 +125,7 @@ public class ClipShareClient {
 
     @OnClose
     public void onClose(Session session) {
-        System.out.println("close: " + session.getId());
+        logger.info("close: " + session.getId());
         synchronized (lock) {
             session = null;
             if(started) {

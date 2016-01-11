@@ -1,5 +1,7 @@
 package io.github.yas99en.clipshare.model;
 
+import java.util.logging.Logger;
+
 import javax.websocket.EndpointConfig;
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
@@ -9,10 +11,12 @@ import javax.websocket.server.ServerEndpoint;
 
 @ServerEndpoint("/update")
 public class ClipShareEndpoint {
+    private static final Logger logger = Logger.getLogger(ClipShareEndpoint.class.getName());
+
     ClipShareServer server = ClipShareServer.getInstance();
     @OnOpen
     public void onOpen(EndpointConfig config, Session session) {
-        System.out.println("[open] " + session);
+        logger.info("[open] " + session);
         server.addSession(session);
     }
 
@@ -23,7 +27,7 @@ public class ClipShareEndpoint {
 
     @OnClose
     public void onClose(Session session) {
-        System.out.println("[close] " + session);
+        logger.info("[close] " + session);
         server.removeSession(session);
     }
 }
