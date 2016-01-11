@@ -39,12 +39,7 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
         icon.trayIcon.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if(!SwingUtilities.isLeftMouseButton(e)) {
-                    return;
-                }
-                if(e.getClickCount() == 1) {
-                    onClicked();
-                }
+                onClicked(e);
             }
         });
         server.setListener(InvokeLaterProxy.makeProxy(ClipShareServer.Listener.class, this));
@@ -65,7 +60,14 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
         return settingDialogPresenter;
     }
 
-    private void onClicked() {
+    private void onClicked(MouseEvent ev) {
+        if(!SwingUtilities.isLeftMouseButton(ev)) {
+            return;
+        }
+        if(ev.getClickCount() != 1) {
+            return;
+        }
+
         try {
             String data = (String) clipboard.getData(DataFlavor.stringFlavor);
             if(data == null) {
