@@ -10,6 +10,7 @@ import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import javax.swing.SwingUtilities;
 import javax.websocket.DeploymentException;
@@ -21,6 +22,7 @@ import io.github.yas99en.clipshare.model.ClipShareContext;
 import io.github.yas99en.clipshare.model.ClipShareServer;;
 
 public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.Listener {
+    private static final Logger logger = Logger.getLogger(IconPresenter.class.getName());
     private static final int MAX_LENGTH = 80;
     private final ClipShareContext context = ClipShareContext.getInstance();
     private final ClipShareServer server = context.getServer();
@@ -78,6 +80,7 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
     }
 
     private void sendMessage(String data) {
+        logger.info("sending message: " + data);
         boolean serverMode = config.isServerMode();
         if(serverMode) {
             server.broadCast(data);
@@ -121,6 +124,7 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
 
     @Override
     public void onClientMessage(String message) {
+        logger.info("received message: " + message);
         setClipboad(message);
     }
 
