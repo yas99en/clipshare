@@ -10,7 +10,7 @@ import org.glassfish.tyrus.server.Server;
 
 public class ClipShareServer {
     public interface Listener {
-        void onServerMessage(String message);
+        void onServerMessage(String message, Session session);
     }
 
     private static ClipShareServer instance = new ClipShareServer();
@@ -42,9 +42,13 @@ public class ClipShareServer {
     }
 
     public void broadCast(String message) {
-        sessions.forEach(s -> {
-            s.getAsyncRemote().sendText(message);
-        });
+        broadCast(message, null);
+    }
+    public void broadCast(String message, Session except) {
+        String exceptId = (except != null) ? except.getId(): null;
+        sessions.stream()
+        .filter(s -> exceptId == null || !s.getId().equals(exceptId))
+        .forEach(s ->s.getAsyncRemote().sendText(message));
     }
 
     void addSession(Session session) {
@@ -57,7 +61,7 @@ public class ClipShareServer {
 
     void onMessage(String message, Session session) {
         if(listener != null) {
-            listener.onServerMessage(message);
+            listener.onServerMessage(message, session);
         }
     }
 }

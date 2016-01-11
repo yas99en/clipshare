@@ -11,7 +11,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 
+import javax.swing.SwingUtilities;
 import javax.websocket.DeploymentException;
+import javax.websocket.Session;
 
 import io.github.yas99en.clipshare.model.ClipShareClient;
 import io.github.yas99en.clipshare.model.ClipShareConfig;
@@ -19,6 +21,7 @@ import io.github.yas99en.clipshare.model.ClipShareContext;
 import io.github.yas99en.clipshare.model.ClipShareServer;;
 
 public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.Listener {
+    private static final int MAX_LENGTH = 80;
     private final ClipShareContext context = ClipShareContext.getInstance();
     private final ClipShareServer server = context.getServer();
     private final ClipShareClient client = context.getClient();
@@ -34,6 +37,9 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
         icon.trayIcon.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                if(!SwingUtilities.isLeftMouseButton(e)) {
+                    return;
+                }
                 if(e.getClickCount() == 1) {
                     onClicked();
                 }
@@ -63,6 +69,8 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
             if(data == null) {
                 return;
             }
+            String msg = data.length() > MAX_LENGTH ? data.substring(0, MAX_LENGTH)+"..." : data;
+            showMessage(msg);
             sendMessage(data);
         } catch (UnsupportedFlavorException | IOException e) {
             showMessage(e.getLocalizedMessage());
@@ -106,9 +114,9 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
     }
 
     @Override
-    public void onServerMessage(String message) {
+    public void onServerMessage(String message, Session session) {
         setClipboad(message);
-        server.broadCast(message);
+        server.broadCast(message, session);
     }
 
     @Override
