@@ -73,8 +73,7 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
             if(data == null) {
                 return;
             }
-            String msg = data.length() > MAX_LENGTH ? data.substring(0, MAX_LENGTH)+"..." : data;
-            showMessage(msg);
+//            showMessage(truncate(data));
             sendMessage(data);
         } catch (UnsupportedFlavorException | IOException e) {
             showMessage(e.getLocalizedMessage());
@@ -122,12 +121,18 @@ public class IconPresenter implements ClipShareServer.Listener, ClipShareClient.
     public void onServerMessage(String message, Session session) {
         setClipboad(message);
         server.broadCast(message, session);
+        showMessage(truncate(message));
     }
 
     @Override
     public void onClientMessage(String message) {
         logger.info("received message: " + message);
         setClipboad(message);
+        showMessage(truncate(message));
+    }
+
+    private static String truncate(String message) {
+        return message.length() > MAX_LENGTH ? message.substring(0, MAX_LENGTH)+"..." : message;
     }
 
     private void setClipboad(String data) {
